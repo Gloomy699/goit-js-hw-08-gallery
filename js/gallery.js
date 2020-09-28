@@ -12,7 +12,6 @@ galleryContainer.addEventListener("click", modalOpen);
 modalBtnClose.addEventListener("click", modalClose);
 overlay.addEventListener("click", modalClose);
 galleryContainer.addEventListener("keydown", modalClose);
-window.addEventListener("keydown", modalImgScrolling);
 modalBtnRight.addEventListener("click", modalImgScrolling);
 modalBtnLeft.addEventListener("click", modalImgScrolling);
 
@@ -49,11 +48,13 @@ function modalOpen(event) {
   modal.classList.add("is-open");
   modalImg.src = event.target.dataset.source;
   modalImg.alt = event.target.alt;
+  window.addEventListener("keydown", modalImgScrolling);
 }
 
 function modalClose(event) {
   if (event.currentTarget === event.target || event.code === "Escape") {
     modal.classList.remove("is-open");
+    window.removeEventListener("keydown", modalImgScrolling);
   }
 }
 
