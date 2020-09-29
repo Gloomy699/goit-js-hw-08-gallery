@@ -75,7 +75,6 @@ function modalImgScrolling(event) {
 
   if (
     event.code === "ArrowRight" ||
-     event.code === "Space" ||
      event.code === "ArrowUp" 
   ) {
     if (imgIndex === galleryItems.length - 1) {
