@@ -11,10 +11,8 @@ const modalBtnLeft = document.querySelector(".scroll-left");
 galleryContainer.addEventListener("click", modalOpen);
 modalBtnClose.addEventListener("click", modalClose);
 overlay.addEventListener("click", modalClose);
-galleryContainer.addEventListener("keydown", modalClose);
-//window.addEventListener("click", modalImgScrolling);
-//modalBtnLeft.addEventListener("click", modalImgScrolling);
-//modalBtnRight.addEventListener("click", modalImgScrolling);
+window.addEventListener("keydown", modalClose);
+//galleryContainer.addEventListener("keydown", modalClose);
 
 function createGalleryMarkup(img) {
   return img
@@ -66,9 +64,7 @@ function modalImgScrolling(event) {
 
   if (
    event.code === "ArrowLeft" ||
-   event.code === "ArrowDown"
-   // ||
-   //modalBtnLeft === event.target
+   event.code === "ArrowDown"  
   ) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
@@ -81,8 +77,6 @@ function modalImgScrolling(event) {
     event.code === "ArrowRight" ||
      event.code === "Space" ||
      event.code === "ArrowUp" 
-    //||
-   //  modalBtnRight === event.target
   ) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
