@@ -13,7 +13,8 @@ modalBtnClose.addEventListener("click", modalClose);
 overlay.addEventListener("click", modalClose);
 galleryContainer.addEventListener("keydown", modalClose);
 window.addEventListener("click", modalImgScrolling);
-window.addEventListener("click", modalImgScrolling);
+//modalBtnLeft.addEventListener("click", modalImgScrolling);
+//modalBtnRight.addEventListener("click", modalImgScrolling);
 
 function createGalleryMarkup(img) {
   return img
@@ -62,44 +63,29 @@ function modalImgScrolling(event) {
   let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
 
   if (
-
-    modalBtnLeft === event.target
+   event.code === "ArrowLeft" ||
+   event.code === "ArrowDown" ||
+   modalBtnLeft === event.target
   ) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
     }
     imgIndex -= 1;
   }
-  if (
-    event.code === "ArrowLeft" ||
-   event.code === "ArrowDown" 
-  ) {
-    if (imgIndex === 0) {
-      imgIndex += galleryItems.length;
-    }
-    imgIndex -= 1;
-  }
+  
 
   if (
     event.code === "ArrowRight" ||
      event.code === "Space" ||
-     event.code === "ArrowUp" 
-    
+     event.code === "ArrowUp" ||
+     modalBtnRight === event.target
   ) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
     }
     imgIndex += 1;
   }
-   if (
   
-    modalBtnRight === event.target
-  ) {
-    if (imgIndex === galleryItems.length - 1) {
-      imgIndex -= galleryItems.length;
-    }
-    imgIndex += 1;
-  }
 
   modalImg.src = galleryItems[imgIndex].original;
   modalImg.alt = galleryItems[imgIndex].description;
