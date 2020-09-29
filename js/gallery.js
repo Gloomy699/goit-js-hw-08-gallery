@@ -64,8 +64,9 @@ function modalImgScrolling(event) {
 
   if (
    event.code === "ArrowLeft" ||
-   event.code === "ArrowDown" ||
-   modalBtnLeft === event.target
+   event.code === "ArrowDown"
+   // ||
+   //modalBtnLeft === event.target
   ) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
@@ -77,8 +78,9 @@ function modalImgScrolling(event) {
   if (
     event.code === "ArrowRight" ||
      event.code === "Space" ||
-     event.code === "ArrowUp" ||
-     modalBtnRight === event.target
+     event.code === "ArrowUp" 
+    //||
+   //  modalBtnRight === event.target
   ) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
