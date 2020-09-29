@@ -1,12 +1,13 @@
 import galleryItems from "./gallery-items.js";
-
-const galleryContainer = document.querySelector(".js-gallery");
-const modal = document.querySelector(".js-lightbox");
-const modalImg = document.querySelector(".lightbox__image");
-const overlay = document.querySelector(".lightbox__overlay");
-const modalBtnClose = document.querySelector(".lightbox__button");
-const modalBtnRight = document.querySelector(".scroll-right");
-const modalBtnLeft = document.querySelector(".scroll-left");
+const refs = {
+  galleryContainer: document.querySelector(".js-gallery"),
+  modal: document.querySelector(".js-lightbox"),
+  modalImg: document.querySelector(".lightbox__image"),
+  overlay: document.querySelector(".lightbox__overlay"),
+  btnToClose: document.querySelector(".lightbox__button"),
+  btnSlideToRight: document.querySelector(".scroll-right"),
+  btnSlideToLeft: document.querySelector(".scroll-left"),
+};
 
 const createGalleryMarkup = (img) => {
   return img
@@ -27,7 +28,7 @@ const createGalleryMarkup = (img) => {
     .join("");
 };
 
-galleryContainer.insertAdjacentHTML(
+refs.galleryContainer.insertAdjacentHTML(
   "beforeend",
   createGalleryMarkup(galleryItems)
 );
@@ -38,25 +39,25 @@ const modalOpen = (event) => {
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  modal.classList.add("is-open");
-  modalImg.src = event.target.dataset.source;
-  modalImg.alt = event.target.alt;
+  refs.modal.classList.add("is-open");
+  refs.modalImg.src = event.target.dataset.source;
+  refs.modalImg.alt = event.target.alt;
   window.addEventListener("keydown", modalImgScrolling);
   window.addEventListener("click", modalImgScrollingWithMouse);
-  // console.log(event.target);
 };
 
 const modalClose = (event) => {
   if (event.currentTarget === event.target || event.code === "Escape") {
-    modal.classList.remove("is-open");
+    refs.modal.classList.remove("is-open");
     window.removeEventListener("keydown", modalImgScrolling);
     window.removeEventListener("click", modalImgScrollingWithMouse);
   }
-  // console.log(event.target);
 };
 
 const modalImgScrolling = (event) => {
-  let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
+  let imgIndex = galleryItems.findIndex(
+    (img) => img.original === refs.modalImg.src
+  );
 
   if (event.code === "ArrowLeft" || event.code === "ArrowDown") {
     if (imgIndex === 0) {
@@ -72,33 +73,33 @@ const modalImgScrolling = (event) => {
     imgIndex += 1;
   }
 
-  modalImg.src = galleryItems[imgIndex].original;
-  modalImg.alt = galleryItems[imgIndex].description;
-  // console.log(event.target);
+  refs.modalImg.src = galleryItems[imgIndex].original;
+  refs.modalImg.alt = galleryItems[imgIndex].description;
 };
 
 const modalImgScrollingWithMouse = (event) => {
-  let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
+  let imgIndex = galleryItems.findIndex(
+    (img) => img.original === refs.modalImg.src
+  );
 
-  if (modalBtnLeft === event.target) {
+  if (refs.btnSlideToLeft === event.target) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
     }
     imgIndex -= 1;
   }
 
-  if (modalBtnRight === event.target) {
+  if (refs.btnSlideToRight === event.target) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
     }
     imgIndex += 1;
   }
-  modalImg.src = galleryItems[imgIndex].original;
-  modalImg.alt = galleryItems[imgIndex].description;
-  // console.log(event.target);
+  refs.modalImg.src = galleryItems[imgIndex].original;
+  refs.modalImg.alt = galleryItems[imgIndex].description;
 };
 
-galleryContainer.addEventListener("click", modalOpen);
-modalBtnClose.addEventListener("click", modalClose);
-overlay.addEventListener("click", modalClose);
+refs.galleryContainer.addEventListener("click", modalOpen);
+refs.btnToClose.addEventListener("click", modalClose);
+refs.overlay.addEventListener("click", modalClose);
 window.addEventListener("keydown", modalClose);
