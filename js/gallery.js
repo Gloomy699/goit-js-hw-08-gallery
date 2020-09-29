@@ -50,14 +50,14 @@ function modalOpen(event) {
   modalImg.src = event.target.dataset.source;
   modalImg.alt = event.target.alt;
   window.addEventListener("keydown", modalImgScrolling);
-  window.addEventListener("click", modalImgScrolling);
+  window.addEventListener("click", modalImgScrollingWithMouse);
 }
 
 function modalClose(event) {
   if (event.currentTarget === event.target || event.code === "Escape") {
     modal.classList.remove("is-open");
     window.removeEventListener("keydown", modalImgScrolling);
-    window.removeEventListener("click", modalImgScrolling);
+    window.removeEventListener("click", modalImgScrollingWithMouse);
   }
 }
 
@@ -91,6 +91,31 @@ function modalImgScrolling(event) {
   }
   
 
+  modalImg.src = galleryItems[imgIndex].original;
+  modalImg.alt = galleryItems[imgIndex].description;
+}
+
+function modalImgScrollingWithMouse(event) {
+  let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
+
+  if (
+  =modalBtnLeft === event.target
+  ) {
+    if (imgIndex === 0) {
+      imgIndex += galleryItems.length;
+    }
+    imgIndex -= 1;
+  }
+  
+
+  if (
+   modalBtnRight === event.target
+  ) {
+    if (imgIndex === galleryItems.length - 1) {
+      imgIndex -= galleryItems.length;
+    }
+    imgIndex += 1;
+  }
   modalImg.src = galleryItems[imgIndex].original;
   modalImg.alt = galleryItems[imgIndex].description;
 }
