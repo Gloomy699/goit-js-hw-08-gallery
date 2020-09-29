@@ -99,7 +99,7 @@ function modalImgScrollingWithMouse(event) {
   let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
 
   if (
-  =modalBtnLeft === event.target
+  modalBtnLeft === event.target
   ) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
