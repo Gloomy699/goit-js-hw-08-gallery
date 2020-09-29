@@ -12,7 +12,7 @@ galleryContainer.addEventListener("click", modalOpen);
 modalBtnClose.addEventListener("click", modalClose);
 overlay.addEventListener("click", modalClose);
 window.addEventListener("keydown", modalClose);
-//galleryContainer.addEventListener("keydown", modalClose);
+
 
 function createGalleryMarkup(img) {
   return img
