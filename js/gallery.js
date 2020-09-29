@@ -8,13 +8,7 @@ const modalBtnClose = document.querySelector(".lightbox__button");
 const modalBtnRight = document.querySelector(".scroll-right");
 const modalBtnLeft = document.querySelector(".scroll-left");
 
-galleryContainer.addEventListener("click", modalOpen);
-modalBtnClose.addEventListener("click", modalClose);
-overlay.addEventListener("click", modalClose);
-window.addEventListener("keydown", modalClose);
-
-
-function createGalleryMarkup(img) {
+const createGalleryMarkup = (img) => {
   return img
     .map(({ preview, original, description }) => {
       return `<li class="gallery__item">
@@ -31,14 +25,14 @@ function createGalleryMarkup(img) {
 </li>`;
     })
     .join("");
-}
+};
 
 galleryContainer.insertAdjacentHTML(
   "beforeend",
   createGalleryMarkup(galleryItems)
 );
 
-function modalOpen(event) {
+const modalOpen = (event) => {
   event.preventDefault();
 
   if (event.target.nodeName !== "IMG") {
@@ -49,61 +43,51 @@ function modalOpen(event) {
   modalImg.alt = event.target.alt;
   window.addEventListener("keydown", modalImgScrolling);
   window.addEventListener("click", modalImgScrollingWithMouse);
-}
+  // console.log(event.target);
+};
 
-function modalClose(event) {
+const modalClose = (event) => {
   if (event.currentTarget === event.target || event.code === "Escape") {
     modal.classList.remove("is-open");
     window.removeEventListener("keydown", modalImgScrolling);
     window.removeEventListener("click", modalImgScrollingWithMouse);
   }
-}
+  // console.log(event.target);
+};
 
-function modalImgScrolling(event) {
+const modalImgScrolling = (event) => {
   let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
 
-  if (
-   event.code === "ArrowLeft" ||
-   event.code === "ArrowDown"  
-  ) {
+  if (event.code === "ArrowLeft" || event.code === "ArrowDown") {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
     }
     imgIndex -= 1;
   }
-  
 
-  if (
-    event.code === "ArrowRight" ||
-     event.code === "ArrowUp" 
-  ) {
+  if (event.code === "ArrowRight" || event.code === "ArrowUp") {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
     }
     imgIndex += 1;
   }
-  
 
   modalImg.src = galleryItems[imgIndex].original;
   modalImg.alt = galleryItems[imgIndex].description;
-}
+  // console.log(event.target);
+};
 
-function modalImgScrollingWithMouse(event) {
+const modalImgScrollingWithMouse = (event) => {
   let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
 
-  if (
-  modalBtnLeft === event.target
-  ) {
+  if (modalBtnLeft === event.target) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
     }
     imgIndex -= 1;
   }
-  
 
-  if (
-   modalBtnRight === event.target
-  ) {
+  if (modalBtnRight === event.target) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
     }
@@ -111,4 +95,10 @@ function modalImgScrollingWithMouse(event) {
   }
   modalImg.src = galleryItems[imgIndex].original;
   modalImg.alt = galleryItems[imgIndex].description;
-}
+  // console.log(event.target);
+};
+
+galleryContainer.addEventListener("click", modalOpen);
+modalBtnClose.addEventListener("click", modalClose);
+overlay.addEventListener("click", modalClose);
+window.addEventListener("keydown", modalClose);
