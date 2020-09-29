@@ -62,10 +62,17 @@ function modalImgScrolling(event) {
   let imgIndex = galleryItems.findIndex((img) => img.original === modalImg.src);
 
   if (
+
+    modalBtnLeft === event.target
+  ) {
+    if (imgIndex === 0) {
+      imgIndex += galleryItems.length;
+    }
+    imgIndex -= 1;
+  }
+  if (
     event.code === "ArrowLeft" ||
-   event.code === "ArrowDown"
-    //||
-   // modalBtnLeft === event.target
+   event.code === "ArrowDown" 
   ) {
     if (imgIndex === 0) {
       imgIndex += galleryItems.length;
@@ -77,8 +84,16 @@ function modalImgScrolling(event) {
     event.code === "ArrowRight" ||
      event.code === "Space" ||
      event.code === "ArrowUp" 
-    //||
-    //modalBtnRight === event.target
+    
+  ) {
+    if (imgIndex === galleryItems.length - 1) {
+      imgIndex -= galleryItems.length;
+    }
+    imgIndex += 1;
+  }
+   if (
+  
+    modalBtnRight === event.target
   ) {
     if (imgIndex === galleryItems.length - 1) {
       imgIndex -= galleryItems.length;
