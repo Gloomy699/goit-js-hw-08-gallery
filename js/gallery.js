@@ -9,10 +9,11 @@ const refs = {
   btnSlideToLeft: document.querySelector(".scroll-left"),
 };
 
-const createGalleryMarkup = (img) => {
-  return img
-    .map(({ preview, original, description }) => {
-      return `<li class="gallery__item">
+const createGalleryMarkup = (img) =>
+  img
+    .map(
+      ({ preview, original, description }) =>
+        `<li class="gallery__item">
   <a class="gallery__link"
     href=${original}
   >
@@ -23,17 +24,16 @@ const createGalleryMarkup = (img) => {
       alt=${description}
     />
   </a>
-</li>`;
-    })
+</li>`
+    )
     .join("");
-};
 
 refs.galleryContainer.insertAdjacentHTML(
   "beforeend",
   createGalleryMarkup(galleryItems)
 );
 
-const modalOpen = (event) => {
+const openModalByClickImg = (event) => {
   event.preventDefault();
 
   if (event.target.nodeName !== "IMG") {
@@ -99,7 +99,7 @@ const modalImgScrollingWithMouse = (event) => {
   refs.modalImg.alt = galleryItems[imgIndex].description;
 };
 
-refs.galleryContainer.addEventListener("click", modalOpen);
+refs.galleryContainer.addEventListener("click", openModalByClickImg);
 refs.btnToClose.addEventListener("click", modalClose);
 refs.overlay.addEventListener("click", modalClose);
 window.addEventListener("keydown", modalClose);
